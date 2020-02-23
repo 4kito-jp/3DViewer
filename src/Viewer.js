@@ -18,17 +18,20 @@ class Viewer extends Component {
       shininess: 35,
     };
 
+    let myWidth = window.innerWidth,
+      myHeight = window.innerHeight - 60 * 2;
+
     let renderer, scene, camera, mesh;
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( myWidth, myHeight );
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
     renderer.gammaFactor = 2.2;
 
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
+    camera = new THREE.PerspectiveCamera(40, myWidth / myHeight, 1, 1000);
     camera.position.set( 0, 0, 25 );
 
     let render = () => {
