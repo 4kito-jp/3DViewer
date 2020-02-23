@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from "react";
+import * as THREE from "three";
+import Button from '@material-ui/core/Button';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    this.mount.appendChild( renderer.domElement );
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+    camera.position.z = 5;
+    var animate = function () {
+      requestAnimationFrame( animate );
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render( scene, camera );
+    };
+    animate();
+  }
+  render() {
+    return (
+      <div>
+      <Button variant="contained" color="primary">
+          Hello World
+        </Button>
+        <div ref={ref=> (this.mount = ref)} />
+      </div>
+    )
+  }
 }
 
 export default App;
