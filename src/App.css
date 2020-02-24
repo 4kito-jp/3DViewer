@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP&display=swap');
+
 .App {
   text-align: center;
 }
@@ -35,4 +37,40 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Tategaki {
+  height: 70%;
+  position: absolute;
+  background-color:rgba(20,20,20,0.3);
+  padding: 20px;
+  -webkit-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  letter-spacing: 1px;
+  line-height: 1.8;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: auto;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+.Tategaki--font__normal {
+  font-family: Noto Serif JP ;
+  color: #FFFFFF;
+}
+
+.Tategaki--font__title {
+  font-family: Noto Serif JP ;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.manipulator {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
 }

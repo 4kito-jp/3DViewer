@@ -5,6 +5,62 @@ import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerat
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 
 class Viewer extends Component {
+
+  constructor(props) {
+    super(props)
+    this.emitter = this.props.emitter
+    this.emitter.addListener(
+      'what_is_kaendoki', () => {
+        this.camera.position.set(10, -9, 10);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "what_is_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
+      'feature_of_kaendoki', () => {
+        this.camera.position.set(9, 1, 11);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "feature_of_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
+      'default', () => {
+        this.camera.position.set(0, 0, 25);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "default"
+        this.rendering();
+      }
+    )
+
+    let myWidth = window.innerWidth, myHeight = window.innerHeight - 60 * 2;
+
+
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setPixelRatio( window.devicePixelRatio );
+    this.renderer.setSize( myWidth, myHeight );
+    this.renderer.gammaInput = true;
+    this.renderer.gammaOutput = true;
+    this.renderer.gammaFactor = 2.2;
+
+    this.camera = new THREE.PerspectiveCamera(40, myWidth / myHeight, 1, 1000);
+    this.camera.position.set(0, 0, 25);
+
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+
+    this.counter = 0.0;
+
+    this.rotateSpeed = 0.0002;
+
+    this.mode = "default";
+  }
+
   componentDidMount() {
 
     let API = {
@@ -18,31 +74,36 @@ class Viewer extends Component {
       shininess: 35,
     };
 
-    let myWidth = window.innerWidth,
-      myHeight = window.innerHeight - 60 * 2;
 
-    let renderer, scene, camera, mesh;
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( myWidth, myHeight );
-    renderer.gammaInput = true;
-    renderer.gammaOutput = true;
-    renderer.gammaFactor = 2.2;
+    let scene = new THREE.Scene();
 
-    scene = new THREE.Scene();
+    let draw = () => {
+      this.renderer.render(scene, this.camera);
 
-    camera = new THREE.PerspectiveCamera(40, myWidth / myHeight, 1, 1000);
-    camera.position.set( 0, 0, 25 );
+      if (this.mode == "default") {
 
-    let render = () => {
-			renderer.render( scene, camera );
+      }
+      else if (this.mode == "what_is_kaendoki") {
+        this.camera.position.x = 10 * Math.cos(this.counter);
+        this.camera.position.z = 10 * Math.sin(this.counter);
+        this.camera.lookAt(0, 0, 0);
+        this.counter += this.rotateSpeed;
+      }
+      else if (this.mode == "feature_of_kaendoki") {
+        this.camera.position.x = 10 * Math.cos(this.counter);
+        this.camera.position.y = 10 * Math.sin(this.counter);
+        this.camera.lookAt(0, 0, 0);
+        this.counter += this.rotateSpeed;
+      }
+      requestAnimationFrame(draw);
     }
 
-    let controls = new OrbitControls( camera, renderer.domElement );
-    controls.addEventListener( 'change', render );
-    controls.minDistance = 10;
-    controls.maxDistance = 50;
-    controls.enablePan = false;
+    this.rendering = draw;
+
+    this.controls.minDistance = 10;
+    this.controls.maxDistance = 50;
+    this.controls.enablePan = false;
+    this.controls.autoRotate = true;
 
     // probe
     let lightProbe = new THREE.LightProbe();
@@ -73,8 +134,7 @@ class Viewer extends Component {
     };
 
     var urls = genCubeUrls(
-      process.env.PUBLIC_URL + '/assets/models/kaen-doki/env/',
-      '.jpg'
+      process.env.PUBLIC_URL + '/assets/models/kaen-doki/env/', '.jpg'
     );
 
     let envMapLoaded = (cubeTexture) => {
@@ -93,20 +153,15 @@ class Viewer extends Component {
             shininess : API.shininess,
             specular: API.specular,
         });
-        mesh = new THREE.Mesh( geometry, material );
+        let mesh = new THREE.Mesh( geometry, material );
         mesh.scale.set(40,40,40);
-        scene.add( mesh );
-      } );
+        scene.add(mesh);
+        draw();
+      });
     }
 
     new THREE.CubeTextureLoader().load( urls, envMapLoaded );
-
-    this.mount.appendChild(renderer.domElement);
-    var animate = function () {
-      requestAnimationFrame( animate );
-      renderer.render( scene, camera );
-    };
-    animate();
+    this.mount.appendChild(this.renderer.domElement);
   }
 
   render() {
