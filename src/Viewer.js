@@ -80,20 +80,26 @@ class Viewer extends Component {
     let draw = () => {
       this.renderer.render(scene, this.camera);
 
-      if (this.mode == "default") {
+      if (this.mode === "default") {
 
       }
-      else if (this.mode == "what_is_kaendoki") {
+      else if (this.mode === "what_is_kaendoki") {
         this.camera.position.x = 10 * Math.cos(this.counter);
         this.camera.position.z = 10 * Math.sin(this.counter);
         this.camera.lookAt(0, 0, 0);
         this.counter += this.rotateSpeed;
       }
-      else if (this.mode == "feature_of_kaendoki") {
+      else if (this.mode === "feature_of_kaendoki") {
         this.camera.position.x = 10 * Math.cos(this.counter);
         this.camera.position.y = 10 * Math.sin(this.counter);
         this.camera.lookAt(0, 0, 0);
         this.counter += this.rotateSpeed;
+      }
+      else if (this.mode === 'differences_of_kaendoki') {
+
+      }
+      else if (this.mode === 'joumon_culture') {
+
       }
       requestAnimationFrame(draw);
     }
