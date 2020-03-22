@@ -100,7 +100,7 @@ class TategakiCard extends Component {
         <div>
           <div className="Tategaki">
             <p className="Tategaki--font__title">２．火焔型土器の特徴</p>
-            <p className="Tategaki--font__normal">　火焔型土器の最大の特徴は、<ruby>口縁<rt>こうえん</rt></ruby>部に付く<ruby>鶏冠状<rt>けいかんじょう</rt></ruby><ruby>把手<rt>はしゅ</rt></ruby>と<ruby>鋸歯状<rt>きょしじょう</rt></ruby>突起、そして原則として縄文を使用せず、隆線文と沈線文によって施された浮彫的な文様です。頸部と胴部上半部にはS字状隆線文および渦巻き状隆線文、胴部下半部には逆U字状隆線文が描かれています。
+            <p className="Tategaki--font__normal">　火焔型土器の最大の特徴は、口縁部に付く<span class="highlight highlight--color__red">鶏冠状把手</span>と<span class="highlight highlight--color__yellow">鋸歯状突起</span>、そして原則として縄文を使用せず、隆線文と沈線文によって施された浮彫的な文様です。頸部と胴部上半部には<span class="highlight highlight--color__blue">Ｓ字状隆線文</span>および渦巻き状隆線文、胴部下半部には逆Ｕ字状隆線文が描かれています。
             </p>
           </div>
         </div>

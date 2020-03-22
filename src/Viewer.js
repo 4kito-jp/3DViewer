@@ -47,7 +47,7 @@ class Viewer extends Component {
     this.renderer.setSize( myWidth, myHeight );
     this.renderer.gammaInput = true;
     this.renderer.gammaOutput = true;
-    this.renderer.gammaFactor = 2.2;
+    // this.renderer.gammaFactor = 2.2;
 
     this.camera = new THREE.PerspectiveCamera(40, myWidth / myHeight, 1, 1000);
     this.camera.position.set(0, 0, 25);
@@ -162,6 +162,30 @@ class Viewer extends Component {
         let mesh = new THREE.Mesh( geometry, material );
         mesh.scale.set(40,40,40);
         scene.add(mesh);
+
+        // 鶏冠状把手
+        var geom, mat, sphere;
+        geom = new THREE.SphereGeometry(0.3, 32, 32);
+        mat = new THREE.MeshBasicMaterial( {color: 0xDD0555} );
+        sphere = new THREE.Mesh(geom, mat);
+        sphere.position.set(4.5, 5.3, -1)
+        scene.add( sphere );
+
+        // 鋸歯状突起
+        geom = new THREE.SphereGeometry(0.3, 32, 32);
+        mat = new THREE.MeshBasicMaterial( {color: 0x777705} );
+        sphere = new THREE.Mesh(geom, mat);
+        sphere.position.set(-4.0, 3.5, 0)
+        scene.add(sphere);
+
+        // Ｓ字状隆線文
+        geom = new THREE.SphereGeometry(0.3, 32, 32);
+        mat = new THREE.MeshBasicMaterial( {color: 0x057777} );
+        sphere = new THREE.Mesh(geom, mat);
+        sphere.position.set(0, -1.2, 3.5)
+        scene.add(sphere);
+
+
         draw();
       });
     }

@@ -74,3 +74,24 @@
   bottom: 80px;
   right: 20px;
 }
+
+.highlight {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  padding-right: 4px;
+  margin: 5px;
+  border-radius: 6px;
+}
+
+.highlight--color__red {
+  background-color:#DD3377;
+}
+
+.highlight--color__yellow {
+  background-color:#888800;
+}
+
+.highlight--color__blue {
+  background-color:#008888;
+}
