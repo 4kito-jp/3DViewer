@@ -20,7 +20,67 @@ class Viewer extends Component {
     )
 
     this.emitter.addListener(
+      'joumon_culture', () => {
+        this.camera.position.set(10, -9, 10);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "what_is_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
+      'village_of_joumon', () => {
+        this.camera.position.set(10, -9, 10);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "what_is_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
+      'differences_of_kaendoki', () => {
+        this.camera.position.set(10, -9, 10);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "what_is_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
       'feature_of_kaendoki', () => {
+        this.camera.position.set(9, 1, 11);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "feature_of_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
+      'climate_of_joumon', () => {
+        this.camera.position.set(9, 1, 11);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "feature_of_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
+      'art_and_kaendoki', () => {
+        this.camera.position.set(9, 1, 11);
+        this.camera.lookAt(0, 0, 0);
+        this.counter = 0.0;
+        this.mode = "feature_of_kaendoki"
+        this.rendering();
+      }
+    )
+
+    this.emitter.addListener(
+      'village_of_joumon', () => {
         this.camera.position.set(9, 1, 11);
         this.camera.lookAt(0, 0, 0);
         this.counter = 0.0;
@@ -83,23 +143,29 @@ class Viewer extends Component {
       if (this.mode === "default") {
 
       }
-      else if (this.mode === "what_is_kaendoki") {
+      else if (this.mode === "what_is_kaendoki"
+        || this.mode === "joumon_culture"
+        || this.mode === "village_of_joumon"
+      ) {
         this.camera.position.x = 10 * Math.cos(this.counter);
         this.camera.position.z = 10 * Math.sin(this.counter);
         this.camera.lookAt(0, 0, 0);
         this.counter += this.rotateSpeed;
       }
-      else if (this.mode === "feature_of_kaendoki") {
+      else if (this.mode === "feature_of_kaendoki"
+        || this.mode === 'climate_of_joumon'
+        || this.mode === 'art_and_kaendoki') {
         this.camera.position.x = 10 * Math.cos(this.counter);
         this.camera.position.y = 10 * Math.sin(this.counter);
         this.camera.lookAt(0, 0, 0);
         this.counter += this.rotateSpeed;
       }
-      else if (this.mode === 'differences_of_kaendoki') {
-
-      }
-      else if (this.mode === 'joumon_culture') {
-
+      else if (this.mode === 'differences_of_kaendoki'
+        || this.mode === 'village_of_joumon') {
+        this.camera.position.y = 10 * Math.cos(this.counter);
+        this.camera.position.z = 10 * Math.sin(this.counter);
+        this.camera.lookAt(0, 0, 0);
+        this.counter += this.rotateSpeed;
       }
       requestAnimationFrame(draw);
     }
